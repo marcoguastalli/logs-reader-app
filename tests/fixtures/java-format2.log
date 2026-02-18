@@ -1,0 +1,7 @@
+17.02.2026 00:00:00.001 *INFO* [sling-scheduler] com.example.Scheduler Scheduler started
+17.02.2026 00:00:00.011 *WARN* [sling-default-1] com.example.Config Logger level set to DEBUG
+17.02.2026 00:00:25.434 *ERROR* [192.168.1.1 GET /page.html] com.example.Servlet No renderer for test@example.com
+17.02.2026 00:01:00.001 *INFO* [sling-scheduler] com.example.Scheduler Running job
+17.02.2026 00:01:00.050 *DEBUG* [scheduler-thread] com.example.Job Processing item
+	at com.example.Job.run(Job.java:42) [com.example:1.0.0]
+	Caused by: java.lang.IllegalArgumentException: invalid input

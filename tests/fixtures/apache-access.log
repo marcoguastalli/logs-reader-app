@@ -1,0 +1,4 @@
+[18/Feb/2026:10:36:16 +0000] "GET /index.html HTTP/1.1" 200 ok [publishfarm/-] 1ms "localhost"
+[18/Feb/2026:10:36:17 +0000] "GET /blocked-resource HTTP/1.1" - blocked [publishfarm/-] 2ms "localhost"
+[18/Feb/2026:10:36:18 +0000] "POST /api/login HTTP/1.1" 401 unauthorized [publishfarm/-] 5ms "localhost"
+[18/Feb/2026:10:36:19 +0000] "GET /admin HTTP/1.1" 403 forbidden [publishfarm/-] 1ms "localhost"

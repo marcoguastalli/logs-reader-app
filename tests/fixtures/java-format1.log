@@ -1,0 +1,11 @@
+2026-02-16 00:01:00.046 ERROR [com.example.Service] Cannot persist fairs
+	org.apache.sling.api.resource.PersistenceException: Unable to create node at /content/
+	at com.example.Service.persist(Service.java:100) [com.example:1.0.0]
+2026-02-16 07:03:53.022 ERROR [com.example.Util] Cannot validate field. Message: Method not found
+2026-02-16 08:00:00.000 INFO [com.example.App] Application started successfully
+2026-02-16 08:01:00.000 DEBUG [com.example.Controller] Processing request for user test@example.com
+2026-02-16 08:02:00.000 WARN [com.example.Security] Low memory: 15% remaining
+2026-02-16 09:00:00.000 ERROR [com.example.Service] Unhandled exception
+	at com.example.Service.doSomething(Service.java:200) [com.example:1.0.0]
+	Caused by: java.lang.NullPointerException
+	at com.example.Service.helper(Service.java:300) [com.example:1.0.0]
