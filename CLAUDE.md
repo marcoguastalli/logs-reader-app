@@ -37,10 +37,13 @@ logs-reader-app/
 ## Running tests
 
 ```bash
-bats tests/
+bats tests/                  # full suite
+bats tests/unit.bats         # a single test file
+bats -f 'context' tests/     # tests whose name matches a filter
+shellcheck read-logs.sh      # static analysis (the script is written to pass clean)
 ```
 
-Install BATS if missing: `brew install bats-core`
+There is no build step. Install BATS if missing: `brew install bats-core`
 
 ## Supported log formats
 
@@ -56,7 +59,7 @@ and are treated accordingly (see behaviour notes below).
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
-| `--level=LEVEL` | Filter by log level: `debug`, `info`, `warn`, `error` | — |
+| `--level=LEVEL` | Filter by log level: `trace`, `debug`, `info`, `warn`, `error` (`warning` is an alias for `warn`) | — |
 | `--find=STRING` | Search for a specific string | — |
 | `--file=FILE` | Restrict search to a specific file | all files in `logs/` |
 | `--context=N` | Total lines shown per match (match + N−1 more) | `1` |
@@ -79,6 +82,22 @@ and are treated accordingly (see behaviour notes below).
 ```
 
 Context lines beyond the first are printed without the `[file | line]` prefix.
+
+## Architecture
+
+The whole tool is one bash file. The big-picture pieces that span the file:
+
+- **Single embedded awk engine** (`AWK_SCRIPT`, see `read-logs.sh`): the entire
+  matching pipeline — level detection, level filtering, `--find` filtering, and
+  context emission — lives in this one awk string, invoked once per file. Behaviour
+  changes happen inside that string, not in the surrounding bash.
+- **Exit-code propagation is structural**: the awk `END` block does `exit 1` when a
+  file produces zero matches; the bash search loop OR-reduces the per-file results
+  into `MATCH_FOUND`. This is the mechanism behind the no-match exit code and the
+  `--output` cleanup-on-empty behaviour.
+- **Output buffering**: terminal output is written to a `mktemp` buffer that a trap
+  removes on exit; `--output=FILE` truncates the target up front and deletes it again
+  if no matches were found — so a failed search never leaves a stale output file.
 
 ## Key design decisions
 

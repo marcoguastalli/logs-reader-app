@@ -28,7 +28,8 @@ Usage: read-logs.sh [OPTIONS]
 Read and filter log files from the logs/ directory.
 
 OPTIONS:
-  --level=LEVEL       Filter by log level: debug, info, warn, error
+  --level=LEVEL       Filter by log level: trace, debug, info, warn, error
+                      (warning is accepted as an alias for warn)
   --find=STRING       Search for a specific string
   --file=FILE         Restrict search to a specific file
   --context=N         Show N lines from match (default: 1, match line only)
@@ -101,7 +102,7 @@ if [ -n "$LEVEL" ]; then
       [ "$LEVEL" = "WARNING" ] && LEVEL="WARN"
       ;;
     *)
-      die "Invalid log level: '$LEVEL'. Accepted: debug, info, warn, error"
+      die "Invalid log level: '$LEVEL'. Accepted: trace, debug, info, warn, error"
       ;;
   esac
 fi
